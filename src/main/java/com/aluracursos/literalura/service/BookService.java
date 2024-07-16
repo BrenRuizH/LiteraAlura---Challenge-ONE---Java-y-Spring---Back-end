@@ -10,7 +10,8 @@ import java.net.http.HttpResponse;
 
 public class BookService {
     public BookResponse getBooks(String query) throws IOException, InterruptedException {
-        HttpRequest request = BookApiClient.buildRequest(query);
+        String encodedQuery = query.replace(" ", "+");
+        HttpRequest request = BookApiClient.buildRequest(encodedQuery);
         HttpResponse<String> response = HttpClientUtil.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         return JacksonJsonParser.parseBookResponse(response.body());
     }
