@@ -14,4 +14,11 @@ public class BookService {
         HttpResponse<String> response = HttpClientUtil.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         return JacksonJsonParser.parseBookResponse(response.body());
     }
+
+    public void displayBooks(BookResponse bookResponse) {
+        bookResponse.getBooks().forEach(book -> {
+            System.out.println("Título: " + book.getTitle());
+            book.getAuthors().forEach(author -> System.out.println("Autor: " + author.getName()));
+        });
+    }
 }
